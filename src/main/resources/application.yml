@@ -8,7 +8,7 @@ spring:
       suffix: .jsp
   datasource: 
     url: jdbc:oracle:thin:@//211.238.142.22:1521/XE
-    username: sist2
+    username: hr
     password: happy
     driver-class-name: oracle.jdbc.OracleDriver
 mybatis: 

@@ -19,4 +19,10 @@ public class BusanVO {
 	private int no, contentid, contenttype,hit;
 	private double x,y;
 	private String title,image1,image2,address;
+	AttractionVO avo = new AttractionVO();
+	CultureVO cvo = new CultureVO();
+	FestivalVO fvo = new FestivalVO();
+	StayVO stvo = new StayVO();
+	ShoppingVO spvo = new ShoppingVO();
+	FoodStoreVO fsvo = new FoodStoreVO();
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.web.mapper.JejuMapper">
+	<!-- 
+		while(rs.next())
+		{
+			SeoulVO vo = new SeoulVO();
+			vo.setTitle(rs.getString(1))
+			vo.getLvo().setMsg(rs.getString(2))
+		}
+	 -->
+	<select id="jejuListData" resultType="JejuVO" parameterType="hashmap">
+	SELECT no,contentid,title,image1,address,hit
+	FROM jejutravel
+	WHERE contenttype = #{contenttype}
+	ORDER BY no ASC
+	OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+</mapper>

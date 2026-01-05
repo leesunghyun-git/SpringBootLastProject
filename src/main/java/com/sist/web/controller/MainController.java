@@ -9,6 +9,7 @@ public class MainController {
 	@GetMapping("/main")
 	public String main_main(Model model)
 	{
+		model.addAttribute("curCat", "home");
 		model.addAttribute("main_jsp", "../main/home.jsp");
 		return "main/main";
 	}

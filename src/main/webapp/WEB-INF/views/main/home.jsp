@@ -15,7 +15,7 @@
                         <img src="/img/catagory-img/1.jpg" alt="">
                         <div class="catagory-title">
                             <a href="#">
-                                <h5>서울 여행</h5>
+                                <h5>서울 여행 코스</h5>
                             </a>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <img src="/img/catagory-img/2.jpg" alt="">
                         <div class="catagory-title">
                             <a href="#">
-                                <h5>부산 여행</h5>
+                                <h5>부산 여행 코스</h5>
                             </a>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <img src="/img/catagory-img/3.jpg" alt="">
                         <div class="catagory-title">
                             <a href="#">
-                                <h5>제주 여행</h5>
+                                <h5>제주 여행 코스</h5>
                             </a>
                         </div>
                     </div>
