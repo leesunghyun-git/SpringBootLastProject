@@ -8,12 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sist.web.service.BusanService;
 import com.sist.web.service.JejuService;
 import com.sist.web.vo.JejuVO;
 import com.sist.web.vo.SeoulVO;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
@@ -56,6 +60,64 @@ public class JejuController {
 		model.addAttribute("contenttype", contenttype);
 		model.addAttribute("curCat", "jeju");
 		model.addAttribute("main_jsp", "../jeju/list.jsp");
+		return "main/main";
+	}
+	@GetMapping("/jeju/find")
+	public String jeju_find(Model model) {
+		
+		model.addAttribute("curCat", "search");
+		model.addAttribute("main_jsp", "../jeju/find.jsp");
+		return "main/main";
+	}
+	@GetMapping("/jeju/detail_before")
+	public String jeju_detail_before(@RequestParam("contentid")int contentid,@RequestParam("contenttype")int contenttype,HttpServletResponse response,RedirectAttributes ra,HttpServletRequest request)
+	{
+		Cookie cookie=new Cookie("jeju_"+contentid,String.valueOf(contentid));
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
+		ra.addAttribute("contentid", contentid);
+		ra.addAttribute("contenttype", contenttype);
+		return "redirect:/jeju/detail";
+	}
+	@GetMapping("/jeju/detail")
+	public String jeju_detail(@RequestParam("contentid")int contentid,@RequestParam("contenttype")int contenttype,Model model)
+	{
+		JejuVO vo = new JejuVO();
+		String jsp = "../jeju/";
+		if(contenttype==12)
+		{
+			vo=jService.jejuAttractionDetailData(contentid);
+			jsp=jsp+"attraction.jsp";
+		}
+		else if(contenttype==14)
+		{
+			vo=jService.jejuCultureDetailData(contentid);
+			jsp=jsp+"culture.jsp";
+		}
+		else if(contenttype==15)
+		{
+			vo=jService.jejuFestivalDetailData(contentid);
+			jsp=jsp+"festival.jsp";
+		}
+		else if(contenttype==32)
+		{
+			vo=jService.jejuStayDetailData(contentid);
+			jsp=jsp+"stay.jsp";
+		}
+		else if(contenttype==38)
+		{
+			vo=jService.jejuShoppingDetailData(contentid);
+			jsp=jsp+"shopping.jsp";
+		}
+		else if(contenttype==39)
+		{
+			vo=jService.jejuFoodDetailData(contentid);
+			jsp=jsp+"foodstore.jsp";
+		}
+		model.addAttribute("vo", vo);
+		model.addAttribute("curCat", "jeju");
+		model.addAttribute("main_jsp", jsp);
 		return "main/main";
 	}
 

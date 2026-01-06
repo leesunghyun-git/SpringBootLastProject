@@ -89,27 +89,39 @@ public class SeoulController {
 		}
 		else if(contenttype==14)
 		{
+			vo=sService.seoulCultureDetailData(contentid);
 			jsp=jsp+"culture.jsp";
 		}
 		else if(contenttype==15)
 		{
+			vo=sService.seoulFestivalDetailData(contentid);
 			jsp=jsp+"festival.jsp";
 		}
 		else if(contenttype==32)
 		{
-			jsp=jsp+"stey.jsp";
+			vo=sService.seoulStayDetailData(contentid);
+			jsp=jsp+"stay.jsp";
 		}
 		else if(contenttype==38)
 		{
+			vo=sService.seoulShoppingDetailData(contentid);
 			jsp=jsp+"shopping.jsp";
 		}
 		else if(contenttype==39)
 		{
+			vo=sService.seoulFoodDetailData(contentid);
 			jsp=jsp+"foodstore.jsp";
 		}
 		model.addAttribute("vo", vo);
 		model.addAttribute("curCat", "seoul");
 		model.addAttribute("main_jsp", jsp);
+		return "main/main";
+	}
+	@GetMapping("/seoul/find")
+	public String seoul_find(Model model) {
+		
+		model.addAttribute("curCat", "search");
+		model.addAttribute("main_jsp", "../seoul/find.jsp");
 		return "main/main";
 	}
 	

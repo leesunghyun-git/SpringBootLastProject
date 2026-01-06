@@ -36,6 +36,51 @@ public class SeoulServiceImpl implements SeoulService{
 		sMapper.seoulHitIncrement(contentid);
 		return sMapper.seoulAttractionDetailData(contentid);
 	}
+	@Override
+	public List<SeoulVO> seoulFindData(Map map) {
+		// TODO Auto-generated method stub
+		return sMapper.seoulFindData(map);
+	}
+	@Override
+	public int seoulFindTotalPage(String address) {
+		// TODO Auto-generated method stub
+		return sMapper.seoulFindTotalPage(address);
+	}
+	@Override
+	public SeoulVO seoulCultureDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		sMapper.seoulHitIncrement(contentid);
+		return sMapper.seoulCultureDetailData(contentid);
+	}
+	@Override
+	public SeoulVO seoulFestivalDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		sMapper.seoulHitIncrement(contentid);
+		return sMapper.seoulFestivalDetailData(contentid);
+	}
+	@Override
+	public SeoulVO seoulFoodDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		sMapper.seoulHitIncrement(contentid);
+		return sMapper.seoulFoodDetailData(contentid);
+	}
+	@Override
+	public SeoulVO seoulShoppingDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		sMapper.seoulHitIncrement(contentid);
+		return sMapper.seoulShoppingDetailData(contentid);
+	}@Override
+	public SeoulVO seoulStayDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		sMapper.seoulHitIncrement(contentid);
+		return sMapper.seoulStayDetailData(contentid);
+	}
+	@Override
+	public List<SeoulVO> seoulTop5Data() {
+		// TODO Auto-generated method stub
+		return sMapper.seoulTop5Data();
+	}
+	
 	
 	
 }

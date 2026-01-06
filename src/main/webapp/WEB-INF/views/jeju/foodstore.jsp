@@ -25,8 +25,8 @@
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/seoul/list?contenttype=12"><i class="fa fa-home" aria-hidden="true"></i> 서울</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">축제&공연</li>
+                            <li class="breadcrumb-item"><a href="/jeju/list?contenttype=12"><i class="fa fa-home" aria-hidden="true"></i> 제주</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">음식</li>
                         </ol>
                     </nav>
                 </div>
@@ -42,7 +42,7 @@
             	<table class="table">
             		<tbody>
             			<tr>
-            				<td width="30%" class="text-center" rowspan="10">
+            				<td width="30%" class="text-center" rowspan="8">
             					<img src="${vo.image1 }" style="width:100%">
             				</td>
             				<td colspan="2"><h3>${vo.title }</h3></td>
@@ -52,42 +52,34 @@
             				<td width="55%">${vo.address }</td>
             			</tr>
             			<tr>
-            				<td width="15%" class="text-center">시작날짜</td>
-            				<td width="55%">${vo.fvo.eventstartdate }</td>
+            				<td width="15%" class="text-center">주메뉴</td>
+            				<td width="55%">${vo.fsvo.firstmenu }</td>
             			</tr>
             			<tr>
-            				<td width="15%" class="text-center">종료날짜</td>
-            				<td width="55%">${vo.fvo.eventenddate }</td>
+            				<td width="15%" class="text-center">부메뉴</td>
+            				<td width="55%">${vo.fsvo.treatmenu }</td>
             			</tr>
             			<tr>
-            				<td width="15%" class="text-center">연령제한</td>
-            				<td width="55%">${vo.fvo.agelimit }</td>
+            				<td width="15%" class="text-center">오픈일</td>
+            				<td width="55%">${vo.fsvo.opendate }</td>
             			</tr>
             			<tr>
-            				<td width="15%" class="text-center">상영시간</td>
-            				<td width="55%">${vo.fvo.playtime }</td>
+            				<td width="15%" class="text-center">운영시간</td>
+            				<td width="55%">${vo.fsvo.opentime }</td>
             			</tr>
             			<tr>
-            				<td width="15%" class="text-center">소요시간</td>
-            				<td width="55%">${vo.fvo.spendtime }</td>
+            				<td width="15%" class="text-center">휴무일</td>
+            				<td width="55%">${vo.fsvo.restdate }</td>
             			</tr>
             			<tr>
-            				<td width="15%" class="text-center">이용가능시간</td>
-            				<td width="55%">${vo.fvo.usetime }</td>
-            			</tr>
-            			<tr>
-            				<td width="15%" class="text-center">장소</td>
-            				<td width="55%">${vo.fvo.eventplace }</td>
-            			</tr>
-            			<tr>
-            				<td width="15%" class="text-center">홈페이지</td>
-            				<td width="55%">${vo.fvo.eventhomepage }</td>
+            				<td width="15%" class="text-center">주차</td>
+            				<td width="55%">${vo.fsvo.parking }</td>
             			</tr>
             		</tbody>
             	</table>
             	<table class="table">
             		<tr>
-            			<td>${vo.fvo.msg }</td>
+            			<td>${vo.fsvo.msg }</td>
             		</tr>
             		<tr>
             			<td class="text-right">

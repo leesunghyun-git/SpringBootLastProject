@@ -25,4 +25,55 @@ public class BusanServiceImpl implements BusanService{
 		// TODO Auto-generated method stub
 		return bMapper.busanTotalPage(contenttype);
 	}
+	@Override
+	public List<BusanVO> busanFindData(Map map) {
+		// TODO Auto-generated method stub
+		return bMapper.busanFindData(map);
+	}
+	@Override
+	public int busanFindTotalPage(String address) {
+		// TODO Auto-generated method stub
+		return bMapper.busanFindTotalPage(address);
+	}
+	@Override
+	public List<BusanVO> busanTop4Data() {
+		// TODO Auto-generated method stub
+		return bMapper.busanTop4Data();
+	}
+	@Override
+	public BusanVO busanCultureDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		bMapper.busanHitIncrement(contentid);
+		return bMapper.busanCultureDetailData(contentid);
+	}
+	@Override
+	public BusanVO busanFestivalDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		bMapper.busanHitIncrement(contentid);
+		return bMapper.busanFestivalDetailData(contentid);
+	}
+	@Override
+	public BusanVO busanStayDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		bMapper.busanHitIncrement(contentid);
+		return bMapper.busanStayDetailData(contentid);
+	}
+	@Override
+	public BusanVO busanShoppingDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		bMapper.busanHitIncrement(contentid);
+		return bMapper.busanShoppingDetailData(contentid);
+	}
+	@Override
+	public BusanVO busanFoodDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		bMapper.busanHitIncrement(contentid);
+		return bMapper.busanFoodDetailData(contentid);
+	}
+	@Override
+	public BusanVO busanAttractionDetailData(int contentid) {
+		// TODO Auto-generated method stub
+		bMapper.busanHitIncrement(contentid);
+		return bMapper.busanAttractionDetailData(contentid);
+	}
 }

@@ -19,42 +19,63 @@
 		<result property="avo.infocenter" column="infocenter"/>
 	</resultMap>
 	<resultMap type="SeoulVO" id="culMap">
-		<result property="avo.msg" column="msg"/>
-		<result property="avo.restdate" column="restdate"/>
-		<result property="avo.usetime" column="usetime"/>
-		<result property="avo.parking" column="parking"/>
-		<result property="avo.infocenter" column="infocenter"/>
+		<result property="cvo.usefee" column="usefee"/>
+		<result property="cvo.spendtime" column="spendtime"/>
+		<result property="cvo.parkingfee" column="parkingfee"/>
+		<result property="cvo.discountinfo" column="discountinfo"/>
+		<result property="cvo.infocenter" column="infocenter"/>
+		<result property="cvo.usetime" column="usetime"/>
+		<result property="cvo.restdate" column="restdate"/>
+		<result property="cvo.parking" column="parking"/>
+		<result property="cvo.msg" column="msg"/>
 	</resultMap>
 	<resultMap type="SeoulVO" id="festMap">
-		<result property="avo.msg" column="msg"/>
-		<result property="avo.restdate" column="restdate"/>
-		<result property="avo.usetime" column="usetime"/>
-		<result property="avo.parking" column="parking"/>
-		<result property="avo.infocenter" column="infocenter"/>
+		<result property="fvo.eventstartdate" column="eventstartdate"/>
+		<result property="fvo.eventenddate" column="eventenddate"/>
+		<result property="fvo.agelimit" column="agelimit"/>
+		<result property="fvo.playtime" column="playtime"/>
+		<result property="fvo.eventplace" column="eventplace"/>
+		<result property="fvo.eventhomepage" column="eventhomepage"/>
+		<result property="fvo.usetime" column="usetime"/>
+		<result property="fvo.spendtime" column="spendtime"/>
+		<result property="fvo.msg" column="msg"/>
 	</resultMap>
 	<resultMap type="SeoulVO" id="stayMap">
-		<result property="avo.msg" column="msg"/>
-		<result property="avo.restdate" column="restdate"/>
-		<result property="avo.usetime" column="usetime"/>
-		<result property="avo.parking" column="parking"/>
-		<result property="avo.infocenter" column="infocenter"/>
+		<result property="stvo.roomtype" column="roomtype"/>
+		<result property="stvo.checkintime" column="checkintime"/>
+		<result property="stvo.checkouttime" column="checkouttime"/>
+		<result property="stvo.chkcooking" column="chkcooking"/>
+		<result property="stvo.subfacility" column="subfacility"/>
+		<result property="stvo.foodplace" column="foodplace"/>
+		<result property="stvo.reservationurl" column="reservationurl"/>
+		<result property="stvo.infocenter" column="infocenter"/>
+		<result property="stvo.parking" column="parking"/>
+		<result property="stvo.msg" column="msg"/>
+
 	</resultMap>
 	<resultMap type="SeoulVO" id="shopMap">
-		<result property="avo.msg" column="msg"/>
-		<result property="avo.restdate" column="restdate"/>
-		<result property="avo.usetime" column="usetime"/>
-		<result property="avo.parking" column="parking"/>
-		<result property="avo.infocenter" column="infocenter"/>
+		<result property="spvo.saleitem" column="saleitem"/>
+		<result property="spvo.saleitemcost" column="saleitemcost"/>
+		<result property="spvo.fairday" column="fairday"/>
+		<result property="spvo.infocenter" column="infocenter"/>
+		<result property="spvo.restdate" column="restdate"/>
+		<result property="spvo.parking" column="parking"/>
+		<result property="spvo.opentime" column="opentime"/>
+		<result property="spvo.msg" column="msg"/>
+
 	</resultMap>
 	<resultMap type="SeoulVO" id="foodMap">
-		<result property="avo.msg" column="msg"/>
-		<result property="avo.restdate" column="restdate"/>
-		<result property="avo.usetime" column="usetime"/>
-		<result property="avo.parking" column="parking"/>
-		<result property="avo.infocenter" column="infocenter"/>
+		<result property="fsvo.firstmenu" column="firstmenu"/>
+		<result property="fsvo.treatmenu" column="treatmenu"/>
+		<result property="fsvo.infocenter" column="infocenter"/>
+		<result property="fsvo.parking" column="parking"/>
+		<result property="fsvo.opendate" column="opendate"/>
+		<result property="fsvo.opentime" column="opentime"/>
+		<result property="fsvo.restdate" column="restdate"/>
+		<result property="fsvo.msg" column="msg"/>
 	</resultMap>
 	<select id="seoulListData" resultType="SeoulVO" parameterType="hashmap">
-	SELECT no,contentid,title,image1,address,hit
+	SELECT no,contentid,title,image1,address,hit,contenttype
 	FROM seoultravel
 	WHERE contenttype = #{contenttype}
 	ORDER BY no ASC
@@ -66,10 +87,55 @@
 	ON s.contentid=a.contentid
 	AND s.contentid=#{contentid}
 	</select>
+	<select id="seoulCultureDetailData" resultMap="culMap" parameterType="int">
+	SELECT s.no,title,image1,address,x,y,usefee,spendtime,parkingfee,discountinfo,infocenter,usetime,restdate,parking,msg
+	FROM seoultravel s JOIN culture a
+	ON s.contentid=a.contentid
+	AND s.contentid=#{contentid}
+	</select>
+	<select id="seoulFestivalDetailData" resultMap="festMap" parameterType="int">
+	SELECT s.no,title,image1,address,x,y,eventstartdate,eventenddate,agelimit,playtime,eventplace,eventhomepage,usetime,spendtime,msg
+	FROM seoultravel s JOIN festival a
+	ON s.contentid=a.contentid
+	AND s.contentid=#{contentid}
+	</select>
+	<select id="seoulStayDetailData" resultMap="stayMap" parameterType="int">
+	SELECT s.no,title,image1,address,x,y,roomtype,checkintime,checkouttime,chkcooking,subfacility,foodplace,reservationurl,infocenter,parking,msg
+	FROM seoultravel s JOIN stay a
+	ON s.contentid=a.contentid
+	AND s.contentid=#{contentid}
+	</select>
+	<select id="seoulShoppingDetailData" resultMap="shopMap" parameterType="int">
+	SELECT s.no,title,image1,address,x,y,saleitem,saleitemcost,fairday,infocenter,restdate,parking,opentime,msg
+	FROM seoultravel s JOIN shopping a
+	ON s.contentid=a.contentid
+	AND s.contentid=#{contentid}
+	</select>
+	<select id="seoulFoodDetailData" resultMap="foodMap" parameterType="int">
+	SELECT s.no,title,image1,address,x,y,firstmenu,treatmenu,infocenter,parking,opendate,opentime,restdate,msg
+	FROM seoultravel s JOIN foodstore a
+	ON s.contentid=a.contentid
+	AND s.contentid=#{contentid}
+	</select>
 	<update id="seoulHitIncrement" parameterType="int">
 	UPDATE seoultravel SET
 	hit=hit+1
 	WHERE contentid=#{contentid}
 	</update>
-	
+	<select id="seoulFindData" resultType="SeoulVO" parameterType="hashMap">
+		SELECT no,contentid,title,image1,address,hit,contenttype
+		FROM seoultravel
+		WHERE address LIKE '%'||#{address}||'%'
+		ORDER BY no ASC
+		OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	</select>
+	<select id="seoulFindTotalPage" resultType="int" parameterType="String">
+		SELECT CEIL(COUNT(*)/12.0) FROM seoulTravel WHERE address LIKE '%'||#{address}||'%'
+	</select>
+	<select id="seoulTop5Data" resultType="SeoulVO">
+	SELECT no,contentid,title,image1,address,hit,contenttype,rownum
+	FROM (SELECT no,contentid,title,image1,address,hit,contenttype 
+	FROM seoultravel WHERE contenttype=39 ORDER BY hit DESC)
+	WHERE rownum &lt;=5
+	</select>
 </mapper>

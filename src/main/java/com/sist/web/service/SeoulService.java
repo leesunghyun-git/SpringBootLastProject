@@ -29,5 +29,13 @@ public interface SeoulService {
 	public List<SeoulVO> seoulListData(Map map);
 	public int seoulTotalPage(int contenttype);
 	public SeoulVO seoulAttractionDetailData(int contentid);
+	public List<SeoulVO> seoulFindData(Map map);
+	public int seoulFindTotalPage(String address);
+	public SeoulVO seoulCultureDetailData(int contentid);
+	public SeoulVO seoulFestivalDetailData(int contentid);
+	public SeoulVO seoulStayDetailData(int contentid);
+	public SeoulVO seoulShoppingDetailData(int contentid);
+	public SeoulVO seoulFoodDetailData(int contentid);
+	public List<SeoulVO> seoulTop5Data();
 	
 }
