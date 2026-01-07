@@ -58,7 +58,7 @@
                             <div class="single-post wow fadeInUp" data-wow-delay=".2s">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
-                                    <embed src="/img/blog-img/1.jpg" alt="">
+                                    <img src="/img/blog-img/1.jpg" alt="" >
                                 </div>
                                 <!-- Post Content -->
                                 <div class="post-content">
