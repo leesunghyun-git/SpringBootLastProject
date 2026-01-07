@@ -23,7 +23,7 @@ jobs:
     steps:
     # 코드 체크 아웃
     - name: Checkout repository
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     # JDK 설치
     - name: Set up JDK 17
