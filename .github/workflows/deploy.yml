@@ -1,4 +1,4 @@
-# add  known_host 수정
+# add  known_host 수정 2
 name: Deploy to Ubuntu Server
 
 on:
