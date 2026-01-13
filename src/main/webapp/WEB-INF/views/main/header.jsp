@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,12 +27,22 @@
                 <div class="col-7 col-sm-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
+                        	<sec:authorize access="isAnonymous()">
                             <div class="login">
-                                <a href="register.html">Sing in</a>
+                            	<a href="/member/join">회원가입</a>
                             </div>
                             <div class="register">
-                                <a href="register.html">Sing up</a>
+                                <a href="/member/login">로그인</a>
                             </div>
+                            </sec:authorize>
+                            <sec:authorize access="isAuthenticated()">
+                            <div class="login">
+                                <a href="/member/logout">로그아웃</a>
+                            </div>
+                            <div class="register">
+                               ${sessionScope.username } &nbsp; 님
+                            </div>
+                            </sec:authorize>
                         </div>
                         <!-- Search Button Area -->
                         <!-- <div class="search_button">
@@ -115,16 +126,27 @@
                                         <a class="dropdown-item" href="/jeju/find">제주 여행 검색</a>
                                     </div>
                                 </li>
-                                <li class="${curCat=='shop'?'nav-item active':'nav-item' }">
-                                    <a class="nav-link" href="#">전국 특산물</a>
-                                </li>
+                                <sec:authorize access="isAuthenticated()">
+                                	<sec:authorize access="hasRole('USER')">
+		                                <li class="${curCat=='mypage'?'nav-item active':'nav-item' }">
+		                                    <a class="nav-link" href="#">마이 페이지</a>
+		                                </li>
+                                </sec:authorize>
+                                	<sec:authorize access="hasRole('ADMIN')">
+		                                <li class="${curCat=='adminpage'?'nav-item active':'nav-item' }">
+		                                    <a class="nav-link" href="#">관리자 페이지</a>
+		                                </li>
+                                	</sec:authorize>
+                                </sec:authorize>
                                 <li class="${curCat =='board'?'nav-item dropdown active':'nav-item dropdown' }">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">커뮤니티</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="#">자유게시판</a>
-                                        <a class="dropdown-item" href="archive.html">공지사항</a>
-                                        <a class="dropdown-item" href="single.html">일대일 채팅</a>
-                                        <a class="dropdown-item" href="single.html">그룹 채팅</a>
+                                        <a class="dropdown-item" href="/board/list">자유게시판</a>
+                                        <a class="dropdown-item" href="#">공지사항</a>
+                                        <sec:authorize access="isAuthenticated()">
+                                        <a class="dropdown-item" href="#">일대일 채팅</a>
+                                        <a class="dropdown-item" href="#">그룹 채팅</a>
+                                    	</sec:authorize>
                                     </div>
                                 </li>
                             </ul>

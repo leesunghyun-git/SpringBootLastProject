@@ -90,9 +90,32 @@
             				<a href="javascript:history.back()" class="btn btn-sm btn-success">목록</a>
             			</td>
             		</tr>
+            		<tr>
+            			<td class="text-center">
+            				<div class="map_wrap">
+							    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+							
+							    <div id="menu_wrap" class="bg_white">
+							        <div class="option">
+							            <div>
+							                <form onsubmit="searchPlaces(); return false;">
+							                    키워드 : <input type="text" value="${addr } 맛집" id="keyword" size="15"> 
+							                    <button type="submit">검색하기</button> 
+							                </form>
+							            </div>
+							        </div>
+							        <hr>
+							        <ul id="placesList"></ul>
+							        <div id="pagination"></div>
+							    </div>
+							</div>
+            			</td>
+            		</tr>
             	</table>
             </div>
         </div>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ba7c1bf5703be19d075b1df1555ef2f&libraries=services"></script>
+		<script src="/vue/map.js"></script>
     </section>
 </body>
 </html>

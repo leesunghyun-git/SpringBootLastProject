@@ -41,7 +41,10 @@ public class SeoulController {
 		 for(SeoulVO vo:list)
 		 {
 			 String[] addrs=vo.getAddress().split(" ");
-			 vo.setAddress(addrs[0]+" "+addrs[1]+" "+addrs[2]);
+			 String address=addrs[0]+" "+addrs[1];
+			 if(addrs.length>=3)
+				 address+=" "+addrs[2];
+			 vo.setAddress(address);
 		 }
 		String name="";
 		if(contenttype==12) name="서울 관광지";
@@ -85,6 +88,7 @@ public class SeoulController {
 		if(contenttype==12)
 		{
 			vo=sService.seoulAttractionDetailData(contentid);
+			
 			jsp=jsp+"attraction.jsp";
 		}
 		else if(contenttype==14)
@@ -112,6 +116,8 @@ public class SeoulController {
 			vo=sService.seoulFoodDetailData(contentid);
 			jsp=jsp+"foodstore.jsp";
 		}
+		String[] addres=vo.getAddress().split(" ");
+		model.addAttribute("addr", addres[1].trim());
 		model.addAttribute("vo", vo);
 		model.addAttribute("curCat", "seoul");
 		model.addAttribute("main_jsp", jsp);
