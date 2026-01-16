@@ -51,13 +51,13 @@ jobs:
 
     - name: Add known_hosts
       run: |
-        ssh-keyscan -t ed25519 13.125.210.214 >> ~/.ssh/known_hosts
+        ssh-keyscan -t ed25519 3.34.99.43 >> ~/.ssh/known_hosts
 #  실행 
 #  정지 => docker stop image명
 #  삭제 => docker rm image
     - name: Depoly on Server using DockerHub image
       run: | 
-        ssh ubuntu@13.125.210.214 << 'EOF'
+        ssh ubuntu@3.34.99.43 << 'EOF'
           docker stop spring-boot-app || true
           docker rm spring-boot-app || true
           docker pull ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
