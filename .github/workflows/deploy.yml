@@ -58,8 +58,8 @@ jobs:
     - name: Depoly on Server using DockerHub image
       run: | 
         ssh ubuntu@13.125.210.214 << 'EOF'
-        docker stop spring-boot-app || true
-        docker rm spring-boot-app || true
-        docker pull ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
-        docker run -d --name spring-boot-app --restart always -p 8080:8080 ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
+          docker stop spring-boot-app || true
+          docker rm spring-boot-app || true
+          docker pull ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
+          docker run -d --name spring-boot-app --restart always -p 8080:8080 ${{secrets.DOCKERHUB_USERNAME}}/spring-boot-app:latest
         EOF
