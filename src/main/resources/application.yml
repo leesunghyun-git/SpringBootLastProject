@@ -6,6 +6,7 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+
   datasource: 
     url: jdbc:oracle:thin:@//211.238.142.22:1521/XE
     username: hr
@@ -15,6 +16,8 @@ spring:
 #    google:
 #      genai:
 #        api-key: 
+
+
 mybatis: 
   type-aliases-package: com.sist.web.vo
   mapper-locations: mybatis/mapper/*.xml
