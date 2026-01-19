@@ -13,7 +13,9 @@ const useCommonseReplyStore=defineStore('commons_reply',{
 		msg:'',
 		updateMsg:{},
 		upReplyNo:null,
-		count:0
+		count:0,
+		reReplyNo:null,
+		reReplyMsg:{}
 	}),
 	getters:{
 		range:(state)=>{
@@ -77,6 +79,7 @@ const useCommonseReplyStore=defineStore('commons_reply',{
 		toggleUpdate(no,msg){
 			this.upReplyNo=this.upReplyNo===no?null:no
 			this.updateMsg[no]=msg
+			this.reReplyNo=null
 		},
 		async commonsUpdate(no){
 			const {data} = await api.put('/commons/update_vue/',{
@@ -86,6 +89,20 @@ const useCommonseReplyStore=defineStore('commons_reply',{
 				page:this.curPage
 			})
 			this.upReplyNo=null
+			this.setPageData(data)
+		},
+		toggleReply(no){
+			this.reReplyNo=this.reReplyNo===no?null:no
+			this.upReplyNo=null
+		},
+		async replyReply(no) {
+			const {data} = await api.post('/commons/reply_reply/insert_vue/',{
+				no:no,
+				cno:this.cno,
+				msg:this.reReplyMsg[no],
+				page:this.curPage				
+			})
+			this.reReplyNo=null
 			this.setPageData(data)
 		}
 	}

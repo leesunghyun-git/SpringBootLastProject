@@ -114,6 +114,8 @@ public class BusanController {
 			vo=bService.busanFoodDetailData(contentid);
 			jsp=jsp+"foodstore.jsp";
 		}
+		String[] addres=vo.getAddress().split(" ");
+		model.addAttribute("addr", addres[0].trim()+" "+addres[1].trim());
 		model.addAttribute("vo", vo);
 		model.addAttribute("curCat", "seoul");
 		model.addAttribute("main_jsp", jsp);

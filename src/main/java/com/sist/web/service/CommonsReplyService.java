@@ -11,4 +11,5 @@ public interface CommonsReplyService {
 	int commonsCount(int cno);
 	void commonsDelete(int no);
 	void commonsUpdate(CommonsReplyVO vo);
+	void commonsReplyReplyInsert(CommonsReplyVO vo);
 }

@@ -122,7 +122,7 @@
                           <ol>
                               <!-- Single Comment Area -->
                               <li class="single_comment_area" v-for="(rvo,index) in store.list" :key="index">
-                                  <div class="comment-wrapper d-flex">
+                                  <div class="comment-wrapper d-flex" v-if="rvo.group_tab===0">
                                       <!-- Comment Meta -->
                                       <div class="comment-author">
                                           <img src="/img/man.png" v-if="rvo.sex==='남자'">
@@ -135,13 +135,46 @@
                                           <p>{{rvo.msg}}</p>
                                           <a class="a-btn" v-if="store.sessionId===rvo.id" @click="store.toggleUpdate(rvo.no,rvo.msg)">{{store.upReplyNo===rvo.no?'취소':'수정'}}</a>
                                           <a  @click="store.commonsDelete(rvo.no)" class="active a-btn"  v-if="store.sessionId===rvo.id	">삭제</a>
-                                          <a  @click="" class="a-btn">댓글</a>
+                                          <a  @click="store.toggleReply(rvo.no)" class="a-btn" v-if="store.sessionId!==''">{{store.reReplyNo===rvo.no?'취소':'댓글'}}</a>
                                           <div class="comment-form" v-if="store.upReplyNo===rvo.no">
 			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.updateMsg[rvo.no]" ref="msg"></textarea>
 			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.commonsUpdate(rvo.no)">댓글수정</button>
 			                              </div>
+			                              <div class="comment-form" v-if="store.reReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.reReplyMsg[rvo.no]" ref="remsg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.replyReply(rvo.no)">댓글</button>
+			                              </div>
                                       </div>
                                   </div> 
+                                   <ol class="children" v-if="rvo.group_tab>=1">
+                                      <li class="single_comment_area">
+                                          <div class="comment-wrapper d-flex">
+                                              <!-- Comment Meta -->
+                                          <div class="comment-author">
+                                          <img src="/img/man.png" v-if="rvo.sex==='남자'">
+                                          <img src="/img/woman.png" v-if="rvo.sex==='여자'">
+                                      </div>
+                                      <!-- Comment Content -->
+                                      <div class="comment-content">
+                                          <span class="comment-date text-muted">{{rvo.dbday}}</span>
+                                          <h5>{{rvo.name}}</h5>
+                                          <p>{{rvo.msg}}</p>
+                                          <a class="a-btn" v-if="store.sessionId===rvo.id" @click="store.toggleUpdate(rvo.no,rvo.msg)">{{store.upReplyNo===rvo.no?'취소':'수정'}}</a>
+                                          <a  @click="store.commonsDelete(rvo.no)" class="active a-btn"  v-if="store.sessionId===rvo.id	">삭제</a>
+                                          <a  @click="store.toggleReply(rvo.no)" class="a-btn" v-if="store.sessionId!==''">{{store.reReplyNo===rvo.no?'취소':'댓글'}}</a>
+                                          <div class="comment-form" v-if="store.upReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.updateMsg[rvo.no]" ref="msg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.commonsUpdate(rvo.no)">댓글수정</button>
+			                              </div>
+			                              <div class="comment-form" v-if="store.reReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.reReplyMsg[rvo.no]" ref="remsg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.replyReply(rvo.no)">댓글</button>
+			                              </div>
+                                      </div>
+                                          </div>
+                                          
+                                      </li>
+                                  </ol>   
                               </li>
                           </ol>
                       </div>
@@ -173,9 +206,8 @@
                         </div>
                     </div>
                 </div>
-            	</div>	
-        </div>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ba7c1bf5703be19d075b1df1555ef2f&libraries=services"></script>
+            	</div>
+            	 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ba7c1bf5703be19d075b1df1555ef2f&libraries=services"></script>
 		<script src="/vue/map.js"></script>
 		<script src="/vue/axios.js"></script>
 		<script src="/vue/commonsReply/commonsReplyStore.js"></script>
@@ -200,7 +232,9 @@
 			commonsReplyApp.use(createPinia())
 			commonsReplyApp.mount('#comment')
 			
-		</script>
+		</script>	
+        </div>
+       
     </section>
 </body>
 </html>

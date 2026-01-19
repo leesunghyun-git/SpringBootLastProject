@@ -62,24 +62,32 @@ public class CommonsReplyServiceImpl implements CommonsReplyService{
 	public void commonsDelete(int no) {
 		// TODO Auto-generated method stub
 		CommonsReplyVO vo = crMapper.commonsInfoData(no);
-		if(vo.getDepth()==0)
+		if(vo.getGroup_step()==0)
 		{
-			crMapper.commonsDelete(no);
+			crMapper.commonsAllDelete(vo.getGroup_id());
 		}
 		else {
-			CommonsReplyVO rvo = new CommonsReplyVO();
-			rvo.setNo(no);
-			rvo.setMsg("삭제된 댓글 입니다.");
-			crMapper.commonsUpdate(rvo);
-		}
-		if(vo.getRoot()!=0)
-		{
-			crMapper.commonsDepthDecrement(vo.getRoot());
+			crMapper.commonsDelete(no);
 		}
 	}
 	@Override
 	public void commonsUpdate(CommonsReplyVO vo) {
 		// TODO Auto-generated method stub
 		crMapper.commonsUpdate(vo);
+	}
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void commonsReplyReplyInsert(CommonsReplyVO vo) {
+		// TODO Auto-generated method stub
+		int pno = vo.getNo();
+		CommonsReplyVO pvo=crMapper.commonsReplyParentData(pno);
+		crMapper.commonsGroupStepIncrement(pvo);
+		vo.setGroup_id(pvo.getGroup_id());
+		vo.setGroup_step(pvo.getGroup_step()+1);
+		vo.setGroup_tab(pvo.getGroup_tab()+1);
+		vo.setRoot(pno);
+		
+		crMapper.commonsReplyReplyInsert(vo);
+		crMapper.commonsDepthIncrement(pno);
 	}
 }

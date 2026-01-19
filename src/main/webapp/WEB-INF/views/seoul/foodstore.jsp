@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- JWT는 사용할 수 없다 --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	const SESSION_ID='${sessionScope.userid}'
+	const CNO = '${param.contentid}'
+</script>
 </head>
 <body>
  <!-- ****** Breadcumb Area Start ****** -->
@@ -42,7 +48,7 @@
             	<table class="table">
             		<tbody>
             			<tr>
-            				<td width="30%" class="text-center" rowspan="8">
+            				<td width="30%" class="text-center" rowspan="7">
             					<img src="${vo.image1 }" style="width:100%">
             				</td>
             				<td colspan="2"><h3>${vo.title }</h3></td>
@@ -58,10 +64,6 @@
             			<tr>
             				<td width="15%" class="text-center">부메뉴</td>
             				<td width="55%">${vo.fsvo.treatmenu }</td>
-            			</tr>
-            			<tr>
-            				<td width="15%" class="text-center">오픈일</td>
-            				<td width="55%">${vo.fsvo.opendate }</td>
             			</tr>
             			<tr>
             				<td width="15%" class="text-center">운영시간</td>
@@ -83,6 +85,9 @@
             		</tr>
             		<tr>
             			<td class="text-right">
+            				<sec:authorize access="hasRole('USER')">
+            				<a href="/reserve/reserve_main" class="btn btn-sm btn-warning">예약</a>
+            				</sec:authorize>
             				<a href="javascript:history.back()" class="btn btn-sm btn-success">목록</a>
             			</td>
             		</tr>
@@ -109,9 +114,124 @@
             		</tr>
             	</table>
             </div>
-        </div>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ba7c1bf5703be19d075b1df1555ef2f&libraries=services"></script>
+                        <div id="comment">
+                      <div class="comment_area section_padding_50 clearfix">
+                          <h4 class="mb-30">댓글 ({{store.count	}})</h4>
+
+                          <ol>
+                              <!-- Single Comment Area -->
+                              <li class="single_comment_area" v-for="(rvo,index) in store.list" :key="index">
+                                  <div class="comment-wrapper d-flex" v-if="rvo.group_tab===0">
+                                      <!-- Comment Meta -->
+                                      <div class="comment-author">
+                                          <img src="/img/man.png" v-if="rvo.sex==='남자'">
+                                          <img src="/img/woman.png" v-if="rvo.sex==='여자'">
+                                      </div>
+                                      <!-- Comment Content -->
+                                      <div class="comment-content">
+                                          <span class="comment-date text-muted">{{rvo.dbday}}</span>
+                                          <h5>{{rvo.name}}</h5>
+                                          <p>{{rvo.msg}}</p>
+                                          <a class="a-btn" v-if="store.sessionId===rvo.id" @click="store.toggleUpdate(rvo.no,rvo.msg)">{{store.upReplyNo===rvo.no?'취소':'수정'}}</a>
+                                          <a  @click="store.commonsDelete(rvo.no)" class="active a-btn"  v-if="store.sessionId===rvo.id	">삭제</a>
+                                          <a  @click="store.toggleReply(rvo.no)" class="a-btn" v-if="store.sessionId!==''">{{store.reReplyNo===rvo.no?'취소':'댓글'}}</a>
+                                          <div class="comment-form" v-if="store.upReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.updateMsg[rvo.no]" ref="msg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.commonsUpdate(rvo.no)">댓글수정</button>
+			                              </div>
+			                              <div class="comment-form" v-if="store.reReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.reReplyMsg[rvo.no]" ref="remsg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.replyReply(rvo.no)">댓글</button>
+			                              </div>
+                                      </div>
+                                  </div> 
+                                   <ol class="children" v-if="rvo.group_tab>=1">
+                                      <li class="single_comment_area">
+                                          <div class="comment-wrapper d-flex">
+                                              <!-- Comment Meta -->
+                                          <div class="comment-author">
+                                          <img src="/img/man.png" v-if="rvo.sex==='남자'">
+                                          <img src="/img/woman.png" v-if="rvo.sex==='여자'">
+                                      </div>
+                                      <!-- Comment Content -->
+                                      <div class="comment-content">
+                                          <span class="comment-date text-muted">{{rvo.dbday}}</span>
+                                          <h5>{{rvo.name}}</h5>
+                                          <p>{{rvo.msg}}</p>
+                                          <a class="a-btn" v-if="store.sessionId===rvo.id" @click="store.toggleUpdate(rvo.no,rvo.msg)">{{store.upReplyNo===rvo.no?'취소':'수정'}}</a>
+                                          <a  @click="store.commonsDelete(rvo.no)" class="active a-btn"  v-if="store.sessionId===rvo.id	">삭제</a>
+                                          <a  @click="store.toggleReply(rvo.no)" class="a-btn" v-if="store.sessionId!==''">{{store.reReplyNo===rvo.no?'취소':'댓글'}}</a>
+                                          <div class="comment-form" v-if="store.upReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.updateMsg[rvo.no]" ref="msg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.commonsUpdate(rvo.no)">댓글수정</button>
+			                              </div>
+			                              <div class="comment-form" v-if="store.reReplyNo===rvo.no">
+			                                <textarea name="message" cols="60" rows="3" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.reReplyMsg[rvo.no]" ref="remsg"></textarea>
+			                                <button type="button" class="btn-primary" style="float: left;width: 80px;height: 75px;display: inline-block;" @click="store.replyReply(rvo.no)">댓글</button>
+			                              </div>
+                                      </div>
+                                          </div>
+                                      </li>
+                                  </ol>   
+                              </li>
+                          </ol>
+                      </div>
+
+                      <!-- Leave A Comment -->
+                      <div class="leave-comment-area section_padding_50 clearfix" v-if="store.sessionId!==''" style="padding-left:180px;">
+                          <div class="comment-form">
+                            <textarea name="message" cols="80" rows="5" placeholder="Message" style="float: left;display: inline-block;resize: none;padding-left:10px;" v-model="store.msg" ref="msgRef"></textarea>
+                            <button type="submit" class="btn-primary" style="float: left;width: 80px;height: 122px;display: inline-block;" @click="store.commonsInsert(msgRef)">댓글쓰기</button>
+                          </div>
+                      </div>
+                      <div class="col-12">
+                    <div class="pagination-area d-sm-flex mt-15">
+                        <nav aria-label="#">
+                            <ul class="pagination">
+                            	<li class="page-item" v-if="store.startPage>1">
+                                    <a class="page-link" @click="store.movePage(store.startPage-1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a>
+                                </li>
+                                <li :class="i===store.curPage?'page-item active':'page-item'" v-for="(i,index) in store.range" :key="index">
+                                    <a class="page-link" @click="store.movePage(i)">{{i}}</a>
+                                </li>
+                                <li class="page-item" v-if="store.endPage<store.totalPage">
+                                    <a class="page-link" @click="store.movePage(store.endPage+1)">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="page-status">
+                            <p>Page {{store.curPage}} of {{store.totalPage}} results</p>
+                        </div>
+                    </div>
+                </div>
+            	</div>
+            	 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ba7c1bf5703be19d075b1df1555ef2f&libraries=services"></script>
 		<script src="/vue/map.js"></script>
+		<script src="/vue/axios.js"></script>
+		<script src="/vue/commonsReply/commonsReplyStore.js"></script>
+		<script>
+			const {createApp,onMounted,ref} = Vue
+			const {createPinia} = Pinia
+			const commonsReplyApp = createApp({
+				setup(){
+					const store=useCommonseReplyStore()
+					const msgRef = ref(null)
+					onMounted(()=>{
+						store.cno = CNO
+						store.sessionId = SESSION_ID
+						store.commonsReplyList()
+					})
+					return{
+						store,
+						msgRef
+					}
+				}
+			})
+			commonsReplyApp.use(createPinia())
+			commonsReplyApp.mount('#comment')
+			
+		</script>
+        </div>
     </section>
 </body>
 </html>

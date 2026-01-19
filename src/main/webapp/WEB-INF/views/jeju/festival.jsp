@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	const SESSION_ID='${sessionScope.userid}'
+	const CNO = '${param.contentid}'
+</script>
 </head>
 <body>
  <!-- ****** Breadcumb Area Start ****** -->

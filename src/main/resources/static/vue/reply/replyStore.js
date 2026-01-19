@@ -9,12 +9,15 @@ const useBoardReplyStore = defineStore('board_reply',{
 		msg:'',
 		upReplyNo:null,
 		updateMsg:{},
-		sessionId:''
+		sessionId:'',
+		reReplyNo:null,
+		reReplyMsg:{}
 	}),
 	actions:{
 		toggleUpdate(no,msg){
 			this.upReplyNo=this.upReplyNo===no?null:no
 			this.updateMsg[no]=msg
+			this.reReplyNo=null
 		},
 		
 		async replyListData(bno){
@@ -66,6 +69,8 @@ const useBoardReplyStore = defineStore('board_reply',{
 			this.list = data.list
 			this.count = data.count
 		}
+		
+		
 	}	
 	
 })

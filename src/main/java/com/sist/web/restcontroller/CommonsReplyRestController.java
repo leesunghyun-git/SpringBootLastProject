@@ -97,7 +97,7 @@ public class CommonsReplyRestController {
 		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
 	@PutMapping("/commons/update_vue/")
-	public ResponseEntity<Map> commons_update_vue(@RequestBody CommonsReplyVO vo,HttpSession session)
+	public ResponseEntity<Map> commons_update_vue(@RequestBody CommonsReplyVO vo)
 	{
 		Map map = null;
 		try {
@@ -112,5 +112,25 @@ public class CommonsReplyRestController {
 		
 		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
-	
+	@PostMapping("/commons/reply_reply/insert_vue/")
+	public ResponseEntity<Map> commons_reply_reply_vue(@RequestBody CommonsReplyVO vo,HttpSession session)
+	{
+		Map map = null;
+		try {
+			String id =(String)session.getAttribute("userid");
+			String name =(String)session.getAttribute("username");
+			String sex =(String)session.getAttribute("sex");
+			vo.setId(id);
+			vo.setName(name);
+			vo.setSex(sex);
+			crService.commonsReplyReplyInsert(vo);
+			map = commons_list(vo.getCno(), vo.getPage());
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(map,HttpStatus.OK);
+	}
+		
 }

@@ -38,4 +38,19 @@ public interface CommonsReplyMapper {
 	
 	@Select("SELECT * FROM commonsReply_2 WHERE no =#{no}")
 	CommonsReplyVO commonsInfoData(int no);
+	
+	@Delete("DELETE commonsReply_2 WHERE group_id = #{group_id}")
+	void commonsAllDelete(int group_id);
+	
+	@Select("SELECT group_id,group_step,group_tab FROM commonsReply_2 WHERE no = #{no}")
+	CommonsReplyVO commonsReplyParentData(int no);
+	
+	@Update("UPDATE commonsReply_2 SET group_step=group_step+1 WHERE group_id=#{group_id} AND group_step=#{group_step}")
+	void commonsGroupStepIncrement(CommonsReplyVO vo);
+	
+	@Insert("INSERT INTO commonsReply_2 VALUES(cs2_no_seq.nextval, #{cno},#{id},#{name},#{sex},#{msg},#{group_id},#{group_step},#{group_tab},#{root},0,SYSDATE)")
+	void commonsReplyReplyInsert(CommonsReplyVO vo);
+	
+	@Update("UPDATE commonsReply_2 SET depth=depth+1 WHERE no = #{no}")
+	void commonsDepthIncrement(int no);
 }
