@@ -15,4 +15,13 @@ public class MypageController {
 		model.addAttribute("main_jsp", "../mypage/mypage_main.jsp");
 		return "main/main";
 	}
+	
+	@GetMapping("/mypage/mypage_reserve")
+	public String mypage_reserve(Model model) {
+		
+		model.addAttribute("curCat", "mypage");
+		model.addAttribute("mypage_jsp", "../mypage/mypage_reserve.jsp");
+		model.addAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		return "main/main";
+	}
 }
