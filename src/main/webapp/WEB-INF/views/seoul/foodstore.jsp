@@ -86,7 +86,7 @@
             		<tr>
             			<td class="text-right">
             				<sec:authorize access="hasRole('USER')">
-            				<a href="/reserve/reserve_main" class="btn btn-sm btn-warning">예약</a>
+            				<a href="/reserve/reserve_main?cno=${vo.contentid }&loc=${addr}" class="btn btn-sm btn-warning">예약</a>
             				</sec:authorize>
             				<a href="javascript:history.back()" class="btn btn-sm btn-success">목록</a>
             			</td>

@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<script>
+const CNO = '${param.cno}'
+const LOC = '${param.loc}'
+</script>
 <style type="text/css">
 .post-headline{
 	overflow:hidden;
@@ -164,6 +168,12 @@ img#food_poster{
 			setup(){
 				const store = useReserveStore()
 				onMounted(()=>{
+				if(CNO !==null)
+				{
+					store.cno = CNO
+					store.loc = LOC
+					store.firstLink()
+				}
 				store.dataRecv()
 		        })
 		        watch(()=>store.cno,(newVal)=>{

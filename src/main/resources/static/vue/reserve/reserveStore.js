@@ -115,6 +115,16 @@ const useReserveStore = defineStore({
 				this.isInwon=false
 				this.isReserveBtn=false	
 			}
+		},
+		async firstLink(){
+			const {data} = await api.get('/reserve/reserve_first/',{
+				params:{
+					cno:this.cno
+				}
+			})
+			this.title=data.title
+			this.image=data.image1
+			this.isDate=true
 		}
 		
 		
