@@ -32,4 +32,7 @@ public interface ReserveMapper {
 	@Select("SELECT r.no,id,cno,rday,rtime,rinwon,TO_CHAR(regdate,'YYYY-mm-dd') as dbday,isReserve,title,image1,address from reserve_2 r, seoultravel s WHERE r.cno=s.contentid ORDER BY no DESC")
 	List<ReserveVO> reserveAdminListData();
 	
+	@Select("SELECT no,contentid,image1,title,x,y,address FROM seoultravel WHERE contentid=#{cno}")
+	SeoulVO reserveFirstData(int cno);
+	
 }

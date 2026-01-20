@@ -67,4 +67,9 @@ public class ReserveServiceImpl implements ReserveService{
 		// TODO Auto-generated method stub
 		return rMapper.reserveAdminListData();
 	}
+	@Override
+	public SeoulVO reserveFirstData(int cno) {
+		// TODO Auto-generated method stub
+		return rMapper.reserveFirstData(cno);
+	}
 }

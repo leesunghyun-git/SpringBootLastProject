@@ -109,6 +109,19 @@ public class ReserveRestController {
 		}
 		return new ResponseEntity<>(res,HttpStatus.OK);
 	}
-	
+	@GetMapping("/reserve/reserve_first/")
+	public ResponseEntity<SeoulVO> reserve_first(@RequestParam("cno")int cno)
+	{
+		SeoulVO vo = null;
+		try {
+			vo = rService.reserveFirstData(cno);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(vo,HttpStatus.OK);
+		
+		
+	}
 	
 }

@@ -12,4 +12,5 @@ public interface ReserveService {
 	String reserveInsert(ReserveVO vo);
 	List<ReserveVO> reserveListData(String id);
 	List<ReserveVO> reserveAdminListData();
+	SeoulVO reserveFirstData(int cno);
 }

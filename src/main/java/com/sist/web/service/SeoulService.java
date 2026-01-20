@@ -38,4 +38,5 @@ public interface SeoulService {
 	public SeoulVO seoulFoodDetailData(int contentid);
 	public List<SeoulVO> seoulTop5Data();
 	
+	
 }
