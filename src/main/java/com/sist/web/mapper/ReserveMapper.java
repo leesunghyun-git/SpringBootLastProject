@@ -1,12 +1,14 @@
 package com.sist.web.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.sist.web.vo.*;
@@ -26,13 +28,25 @@ public interface ReserveMapper {
 		@Result(column="address",property = "svo.address")		
 	})*/
 	@ResultMap("resMap")
-	@Select("SELECT r.no,cno,rday,rtime,rinwon,TO_CHAR(regdate,'YYYY-mm-dd') as dbday,isReserve,title,image1,address from reserve_2 r, seoultravel s WHERE id = #{id} AND r.cno=s.contentid ORDER BY no DESC")
+	@Select("SELECT r.no,cno,rday,rtime,rinwon,TO_CHAR(regdate,'YYYY-mm-dd') as dbday,isReserve,title,image1,address,iscancel from reserve_2 r, seoultravel s WHERE id = #{id} AND r.cno=s.contentid ORDER BY no DESC")
 	List<ReserveVO> reserveListData(String id);
 	@ResultMap("resMap")
-	@Select("SELECT r.no,id,cno,rday,rtime,rinwon,TO_CHAR(regdate,'YYYY-mm-dd') as dbday,isReserve,title,image1,address from reserve_2 r, seoultravel s WHERE r.cno=s.contentid ORDER BY no DESC")
+	@Select("SELECT r.no,id,cno,rday,rtime,rinwon,TO_CHAR(regdate,'YYYY-mm-dd') as dbday,isReserve,title,image1,address,iscancel from reserve_2 r, seoultravel s WHERE r.cno=s.contentid ORDER BY no DESC")
 	List<ReserveVO> reserveAdminListData();
 	
 	@Select("SELECT no,contentid,image1,title,x,y,address FROM seoultravel WHERE contentid=#{cno}")
 	SeoulVO reserveFirstData(int cno);
 	
+	@Update("UPDATE reserve_2 SET isReserve = 1 WHERE no = #{no}")
+	void reserveAdminOk(int no);
+	
+	@Update("UPDATE reserve_2 SET iscancel= 1 WHERE no = #{no}")
+	void reserveUserCancel(int no);
+	
+	@Delete("DELETE reserve_2 WHERE no = #{no}")
+	void reserveAdminDelete(int no);
+	
+	@ResultMap("resMap")
+	@Select("SELECT r.no,cno,rday,rtime,rinwon,title,image1,address from reserve_2 r, seoultravel s WHERE r.cno=s.contentid AND r.no = #{no}")
+	ReserveVO reserveDetailData(int no);
 }

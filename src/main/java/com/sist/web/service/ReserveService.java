@@ -13,4 +13,8 @@ public interface ReserveService {
 	List<ReserveVO> reserveListData(String id);
 	List<ReserveVO> reserveAdminListData();
 	SeoulVO reserveFirstData(int cno);
+	void reserveAdminOk(int no);
+	void reserveUserCancel(int no);
+	void reserveAdminDelete(int no);
+	ReserveVO reserveDetailData(int no);
 }

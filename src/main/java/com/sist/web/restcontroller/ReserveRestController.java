@@ -120,8 +120,7 @@ public class ReserveRestController {
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(vo,HttpStatus.OK);
-		
-		
 	}
+
 	
 }

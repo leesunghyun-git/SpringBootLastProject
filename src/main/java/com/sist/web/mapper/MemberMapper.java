@@ -33,7 +33,7 @@ REGDATE           DATE
 			+ "VALUES (#{userid},#{username},#{userpwd},#{sex},#{birthday},#{email},#{post},#{addr1},#{addr2},#{phone},#{content})")
 	public void memberInsert(MemberVO vo);
 	
-	@Insert("INSERT INTO authority_2 VALUES(#{userid})")
+	@Insert("INSERT INTO authority_2(userid) VALUES(#{userid})")
 	public void memberAuthority(String userid);
 	
 	// 비밀번호 검사 => 데이터 읽기 => session 저장
